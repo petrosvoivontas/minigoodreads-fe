@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './index.css'
+import RootIndex from './RootIndex'
 import Root, { listsLoader } from './Root'
 import ErrorPage from './ErrorPage'
 import Login, { action as loginAction } from './Login'
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
 		errorElement: <ErrorPage />,
 		loader: listsLoader,
 		children: [
+			{ index: true, element: <RootIndex /> },
 			{
 				path: '/lists/:id',
 				element: <BooksInList />,
@@ -26,6 +28,7 @@ const router = createBrowserRouter([
 		path: '/login',
 		element: <Login />,
 		action: loginAction,
+		errorElement: <div>Oops! There was an error</div>,
 	},
 ])
 
