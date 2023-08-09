@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './index.css'
 import RootIndex from './RootIndex'
-import Root, { listsLoader } from './routes/root'
+import Root, { listsLoader, logoutAction } from './routes/root'
 import ErrorPage from './error-page'
 import Login, { action as loginAction } from './login-page'
 import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
@@ -15,6 +15,7 @@ const router = createBrowserRouter([
 		element: <Root />,
 		errorElement: <ErrorPage />,
 		loader: listsLoader,
+		action: logoutAction,
 		children: [
 			{ index: true, element: <RootIndex /> },
 			{

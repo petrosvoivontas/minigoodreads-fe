@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink, Outlet, useLoaderData } from 'react-router-dom'
+import { Form, Link, NavLink, Outlet, redirect, useLoaderData } from 'react-router-dom'
 
 export const listsLoader = () =>
 	new Promise((resolve, reject) => {
@@ -24,8 +24,14 @@ export const listsLoader = () =>
 		}, 2000)
 	})
 
+export const logoutAction = () => {
+	localStorage.removeItem('accessToken')
+	return redirect('/')
+}
+
 const Root = () => {
 	const lists = useLoaderData()
+	const isLoggedIn = localStorage.getItem('accessToken') !== null
 	return (
 		<>
 			<div id="sidebar">
@@ -42,9 +48,15 @@ const Root = () => {
 						<div id="search-spinner" aria-hidden hidden={true} />
 						<div className="sr-only" aria-live="polite"></div>
 					</form>
-					<button>
-						<Link to={'/login'}>Login</Link>
-					</button>
+					{isLoggedIn ? (
+						<Form method='post'>
+							<button type='submit'>Logout</button>
+						</Form>
+					) : (
+						<button>
+							<Link to={'/login'}>Login</Link>
+						</button>
+					)}
 				</div>
 				<nav>
 					{lists.length ? (
