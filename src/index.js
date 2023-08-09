@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './index.css'
 import RootIndex from './RootIndex'
-import Root, { listsLoader } from './Root'
-import ErrorPage from './ErrorPage'
-import Login, { action as loginAction } from './Login'
-import BooksInList, { loader as booksInListLoader } from './BooksInList'
+import Root, { listsLoader } from './routes/root'
+import ErrorPage from './error-page'
+import Login, { action as loginAction } from './login-page'
+import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
 
 const router = createBrowserRouter([
 	{
