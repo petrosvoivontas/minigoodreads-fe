@@ -1,46 +1,83 @@
 import React from 'react'
-import { redirect, useFetcher } from 'react-router-dom'
+import { redirect, Form, useNavigation } from 'react-router-dom'
+
+const FORM_DATA_USERNAME = 'username'
+const FORM_DATA_PASSWORD = 'password'
+const FORM_DATA_AUTH_TYPE = 'auth-type'
+const AUTH_TYPE_LOGIN = 'login'
+const AUTH_TYPE_REGISTER = 'register'
+
+const storeCredentials = (username, password) => {
+	const token = btoa(`${username}:${password}`)
+	localStorage.setItem('accessToken', token)
+}
+
+const login = async (username, password) => {
+	const token = btoa(`${username}:${password}`)
+	const response = await fetch('http://localhost:8081/api/auth/login', {
+		headers: {
+			authorization: `Basic ${token}`,
+		},
+	})
+	if (response.ok) {
+		const jsonResponse = await response.json()
+		console.log(jsonResponse)
+		storeCredentials(username, password)
+	}
+}
+
+const register = async (username, password) => {
+	await fetch('http://localhost:8081/api/auth/register', {
+		method: 'post',
+		headers: {
+			'content-type': 'application/json'
+		},
+		body: JSON.stringify({ username, password })
+	})
+	storeCredentials(username, password)
+}
 
 export const action = async ({ request }) => {
 	const formData = await request.formData()
-	const username = formData.get('username')
-	const password = formData.get('password')
-	console.log(username, password)
-	const token = btoa(`${username}:${password}`)
-	try {
-		const response = await fetch('http://localhost:8081/api/auth/login', {
-			headers: {
-				authorization: `Basic ${token}`,
-			},
-		})
-		if (response.ok) {
-			const jsonResponse = await response.json()
-			console.log(jsonResponse)
-			localStorage.setItem('accessToken', token)
-			return redirect('/')
-		}
-	} catch {}
+	const username = formData.get(FORM_DATA_USERNAME)
+	const password = formData.get(FORM_DATA_PASSWORD)
+	const authType = formData.get(FORM_DATA_AUTH_TYPE)
+	switch (authType) {
+		case AUTH_TYPE_LOGIN:
+			await login(username, password)
+			break
+		case AUTH_TYPE_REGISTER:
+			await register(username, password)
+			break
+		default:
+			break
+	}
+	return redirect('/')
 }
 
 const Login = () => {
-	const fetcher = useFetcher()
-	const loading = fetcher.state === 'submitting'
+	const navigation = useNavigation()
+	const loading = navigation.state === 'submitting' || navigation.state === 'loading'
+
 	return (
-		<fetcher.Form method="post" id="contact-form">
+		<Form method="post" id="contact-form">
 			<label>
 				<span>Username</span>
-				<input placeholder="Username" type="text" name="username" />
+				<input placeholder="Username" type="text" name={FORM_DATA_USERNAME} required minLength={1} />
 			</label>
 			<label>
 				<span>Password</span>
-				<input placeholder="Password" type="password" name="password" />
+				<input placeholder="Password" type="password" name={FORM_DATA_PASSWORD} required minLength={1} />
 			</label>
 			<p>
-				<button type="submit" disabled={loading}>
+				<button type="submit" disabled={loading} name={FORM_DATA_AUTH_TYPE} value={AUTH_TYPE_LOGIN}>
 					Login
 				</button>
+				<button type="submit" disabled={loading} name={FORM_DATA_AUTH_TYPE} value={AUTH_TYPE_REGISTER}>
+					Signup
+				</button>
 			</p>
-		</fetcher.Form>
+		</Form>
 	)
 }
 
