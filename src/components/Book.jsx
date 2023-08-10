@@ -5,9 +5,11 @@ const Book = ({ book }) => {
 	const { bookId, coverImageUrl, bookTitle, bookAuthor } = book
 	return (
 		<div id="contact">
-			<div>
-				<img src={coverImageUrl} alt="book cover" />
-			</div>
+			{coverImageUrl && (
+				<div>
+					<img src={coverImageUrl} alt="book cover" />
+				</div>
+			)}
 			<div>
 				<h1>{bookTitle}</h1>
 

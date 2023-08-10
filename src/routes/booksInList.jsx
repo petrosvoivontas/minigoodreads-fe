@@ -4,15 +4,15 @@ import Book from '../components/Book'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
-	return [
-		{
-			bookId: 'bookId',
-			coverImageUrl: 'http://books.google.com/books/content?id=d2WZDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-			bookTitle: 'bookTitle',
-			bookAuthor: 'bookAuthor',
-			insertTs: 1690743791050,
+	console.log(`loading books for list ${listId}`)
+	const token = localStorage.getItem('accessToken')
+	const response = await fetch(`http://localhost:8081/api/lists/${listId}/books`, {
+		headers: {
+			Authorization: `basic ${token}`,
 		},
-	]
+	})
+	const books = await response.json()
+	return books.data
 }
 
 export const removeBookFromListAction = async ({ params }) => {
