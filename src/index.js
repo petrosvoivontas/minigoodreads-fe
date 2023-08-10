@@ -10,6 +10,7 @@ import Login, { action as loginAction } from './login-page'
 import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
 import CreateList, { createListAction } from './routes/createList'
 import RenameList, { renameListAction } from './routes/renameList'
+import DeleteList, { deleteListAction } from './routes/deleteList'
 
 const router = createBrowserRouter([
 	{
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
 				path: '/lists/:id/edit',
 				element: <RenameList />,
 				action: renameListAction,
+			},
+			{
+				path: '/lists/:id/delete',
+				element: <DeleteList />,
+				action: deleteListAction,
 			},
 		],
 	},

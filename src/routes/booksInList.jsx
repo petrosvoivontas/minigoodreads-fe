@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLoaderData, useParams } from 'react-router-dom'
+import { Form, Link, useLoaderData, useParams } from 'react-router-dom'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
@@ -20,9 +20,14 @@ const BooksInList = () => {
 	return (
 		<>
 			{listId >= 10 && (
-				<Link to={`/lists/${listId}/edit`}>
-					<button>Rename</button>
-				</Link>
+				<>
+					<Link to={`/lists/${listId}/edit`}>
+						<button>Rename</button>
+					</Link>
+					<Form action={`/lists/${listId}/delete`}>
+						<button type='submit'>Delete</button>
+					</Form>
+				</>
 			)}
 			{books.length ? (
 				<ul>
