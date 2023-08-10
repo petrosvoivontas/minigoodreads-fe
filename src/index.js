@@ -8,6 +8,7 @@ import Root, { listsLoader, logoutAction } from './routes/root'
 import ErrorPage from './error-page'
 import Login, { action as loginAction } from './login-page'
 import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
+import CreateList, { createListAction } from './routes/createList'
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
 		action: logoutAction,
 		children: [
 			{ index: true, element: <RootIndex /> },
+			{
+				path: '/lists/create',
+				element: <CreateList />,
+				action: createListAction,
+			},
 			{
 				path: '/lists/:id',
 				element: <BooksInList />,
