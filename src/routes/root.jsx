@@ -1,28 +1,23 @@
 import React from 'react'
 import { Form, Link, NavLink, Outlet, redirect, useLoaderData } from 'react-router-dom'
 
-export const listsLoader = () =>
-	new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve([
-				{
-					resourceId: '19c6aca9-9101-49ae-8b27-8f93127af4af',
-					listId: 0,
-					name: 'Want to read',
-				},
-				{
-					resourceId: 'edf4977d-1eb2-475c-8a2c-af6243d94c3f',
-					listId: 1,
-					name: 'Currently reading',
-				},
-				{
-					resourceId: '9c83c19c-8543-4669-a8d3-ded55ca07710',
-					listId: 2,
-					name: 'Read',
-				},
-			])
-		}, 2000)
-	})
+export const listsLoader = async () => {
+	const token = localStorage.getItem('accessToken')
+	if (token === null) {
+		return []
+	}
+	try {
+		const response = await fetch('http://localhost:8081/api/lists', {
+			headers: {
+				authorization: `basic ${token}`
+			}
+		})
+		const jsonResponse = await response.json()
+		return jsonResponse.data
+	} catch {
+		return []
+	}
+}
 
 export const logoutAction = () => {
 	localStorage.removeItem('accessToken')
