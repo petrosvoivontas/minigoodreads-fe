@@ -37,6 +37,9 @@ const register = async (username, password) => {
 	storeCredentials(username, password)
 }
 
+/**
+ * @type {import('react-router-dom').ActionFunction}
+ */
 export const action = async ({ request }) => {
 	const formData = await request.formData()
 	const username = formData.get(FORM_DATA_USERNAME)
