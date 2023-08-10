@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData, useParams } from 'react-router-dom'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
@@ -16,8 +16,12 @@ export const loader = async ({ params }) => {
 
 const BooksInList = () => {
 	const books = useLoaderData()
+	const { id: listId } = useParams()
 	return (
 		<>
+			<Link to={`/lists/${listId}/edit`}>
+				<button>Rename</button>
+			</Link>
 			{books.length ? (
 				<ul>
 					{books.map(book => (
