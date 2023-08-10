@@ -15,12 +15,15 @@ export const loader = async ({ params }) => {
 	return books.data
 }
 
-export const removeBookFromListAction = async ({ params }) => {
+/**
+ * @type {import('react-router-dom').ActionFunction}
+ */
+export const removeBookFromListAction = async ({ params, request }) => {
 	const { id: listId, bookId } = params
 	console.log(`removing book ${bookId} from list ${listId}`)
 	const token = localStorage.getItem('accessToken')
 	await fetch(`http://localhost:8081/api/lists/${listId}/books/${bookId}`, {
-		method: 'DELETE',
+		method: request.method,
 		headers: {
 			Authorization: `basic ${token}`,
 		},

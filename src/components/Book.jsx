@@ -16,7 +16,7 @@ const Book = ({ book }) => {
 				<p>{bookAuthor}</p>
 			</div>
 			<div>
-				<Form action={`books/${bookId}/delete`} method="post">
+				<Form action={`books/${bookId}/delete`} method="delete">
 					<button type="submit">Remove</button>
 				</Form>
 			</div>
