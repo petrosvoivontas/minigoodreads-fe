@@ -9,6 +9,7 @@ import ErrorPage from './error-page'
 import Login, { action as loginAction } from './login-page'
 import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
 import CreateList, { createListAction } from './routes/createList'
+import RenameList, { renameListAction } from './routes/renameList'
 
 const router = createBrowserRouter([
 	{
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
 				path: '/lists/:id',
 				element: <BooksInList />,
 				loader: booksInListLoader,
+			},
+			{
+				path: '/lists/:id/edit',
+				element: <RenameList />,
+				action: renameListAction,
 			},
 		],
 	},
