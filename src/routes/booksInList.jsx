@@ -19,9 +19,11 @@ const BooksInList = () => {
 	const { id: listId } = useParams()
 	return (
 		<>
-			<Link to={`/lists/${listId}/edit`}>
-				<button>Rename</button>
-			</Link>
+			{listId >= 10 && (
+				<Link to={`/lists/${listId}/edit`}>
+					<button>Rename</button>
+				</Link>
+			)}
 			{books.length ? (
 				<ul>
 					{books.map(book => (
