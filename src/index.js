@@ -7,7 +7,10 @@ import RootIndex from './RootIndex'
 import Root, { listsLoader, logoutAction } from './routes/root'
 import ErrorPage from './error-page'
 import Login, { action as loginAction } from './login-page'
-import BooksInList, { loader as booksInListLoader } from './routes/booksInList'
+import BooksInList, {
+	loader as booksInListLoader,
+	removeBookFromListAction,
+} from './routes/booksInList'
 import CreateList, { createListAction } from './routes/createList'
 import RenameList, { renameListAction } from './routes/renameList'
 import DeleteList, { deleteListAction } from './routes/deleteList'
@@ -30,6 +33,12 @@ const router = createBrowserRouter([
 				path: '/lists/:id',
 				element: <BooksInList />,
 				loader: booksInListLoader,
+				children: [
+					{
+						path: 'books/:bookId/delete',
+						action: removeBookFromListAction,
+					},
+				],
 			},
 			{
 				path: '/lists/:id/edit',

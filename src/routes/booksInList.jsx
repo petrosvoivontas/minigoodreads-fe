@@ -1,17 +1,31 @@
 import React from 'react'
-import { Form, Link, useLoaderData, useParams } from 'react-router-dom'
+import { Form, Link, redirect, useLoaderData, useParams } from 'react-router-dom'
+import Book from '../components/Book'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
 	return [
 		{
 			bookId: 'bookId',
-			coverImageUrl: null,
+			coverImageUrl: 'http://books.google.com/books/content?id=d2WZDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
 			bookTitle: 'bookTitle',
 			bookAuthor: 'bookAuthor',
 			insertTs: 1690743791050,
 		},
 	]
+}
+
+export const removeBookFromListAction = async ({ params }) => {
+	const { id: listId, bookId } = params
+	console.log(`removing book ${bookId} from list ${listId}`)
+	const token = localStorage.getItem('accessToken')
+	await fetch(`http://localhost:8081/api/lists/${listId}/books/${bookId}`, {
+		method: 'DELETE',
+		headers: {
+			Authorization: `basic ${token}`,
+		},
+	})
+	return redirect(`/lists/${listId}`)
 }
 
 const BooksInList = () => {
@@ -32,10 +46,7 @@ const BooksInList = () => {
 			{books.length ? (
 				<ul>
 					{books.map(book => (
-						<li key={book.bookId}>
-							<label>Book name</label>
-							<p>{book.bookTitle}</p>
-						</li>
+						<Book book={book} key={book.bookId} />
 					))}
 				</ul>
 			) : (
