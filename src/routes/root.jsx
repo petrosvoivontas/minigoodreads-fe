@@ -44,13 +44,18 @@ const Root = () => {
 						<div className="sr-only" aria-live="polite"></div>
 					</form>
 					{isLoggedIn ? (
-						<Form method='post'>
-							<button type='submit'>Logout</button>
-						</Form>
+						<>
+							<Link to={'/lists/create'}>
+								<button>New</button>
+							</Link>
+							<Form method='post'>
+								<button type='submit'>Logout</button>
+							</Form>
+						</>
 					) : (
-						<button>
-							<Link to={'/login'}>Login</Link>
-						</button>
+						<Link to={'/login'}>
+							<button>Login</button>
+						</Link>
 					)}
 				</div>
 				<nav>
