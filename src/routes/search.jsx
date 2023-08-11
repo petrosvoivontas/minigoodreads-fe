@@ -22,7 +22,7 @@ export const loader = async ({ request }) => {
 		const book = {
 			bookId: item.id,
 			bookTitle: item.volumeInfo.title,
-			bookAuthor: item.volumeInfo.authors,
+			bookAuthors: item.volumeInfo.authors,
 			coverImageUrl: item.volumeInfo.imageLinks?.thumbnail
 		}
 		return book
