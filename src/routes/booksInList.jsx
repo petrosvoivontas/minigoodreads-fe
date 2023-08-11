@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Link, redirect, useLoaderData, useParams } from 'react-router-dom'
 import Book from '../components/Book'
+import UpdateReadingProgress from './updateReadingProgress'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
@@ -48,8 +49,14 @@ const BooksInList = () => {
 			)}
 			{books.length ? (
 				<ul>
-					{books.map(book => (
-						<Book book={book} key={book.bookId} />
+					{books.map((book, i) => (
+						<div key={i} style={{
+							display: 'flex',
+							justifyContent: 'space-between',
+						}}>
+							<Book book={book} key={book.bookId} />
+							<UpdateReadingProgress bookId={book.bookId} pageCount={book.pageCount} />
+						</div>
 					))}
 				</ul>
 			) : (

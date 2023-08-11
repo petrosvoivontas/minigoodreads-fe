@@ -16,6 +16,7 @@ import RenameList, { renameListAction } from './routes/renameList'
 import DeleteList, { deleteListAction } from './routes/deleteList'
 import Search, { loader as booksSearchLoader } from './routes/search'
 import { addBookToListAction } from './routes/addBookToList'
+import { updateReadingProgressAction } from './routes/updateReadingProgress'
 
 const router = createBrowserRouter([
 	{
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
 			{
 				path: '/add-to-list',
 				action: addBookToListAction,
+			},
+			{
+				path: '/progress',
+				action: updateReadingProgressAction,
 			},
 		],
 	},

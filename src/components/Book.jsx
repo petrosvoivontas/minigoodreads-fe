@@ -1,7 +1,7 @@
 import React from "react"
 import { Form } from "react-router-dom"
 
-const Book = ({ book }) => {
+const Book = ({ book, currentPage }) => {
 	const { bookId, coverImageUrl, bookTitle, bookAuthors, pageCount } = book
 	return (
 		<div id="contact">
@@ -16,6 +16,7 @@ const Book = ({ book }) => {
 				<p>{bookAuthors}</p>
 
 				<p>Number of pages: {pageCount}</p>
+				<p>Current page: {currentPage > 0 ? currentPage : '-'}</p>
 			</div>
 			<div>
 				<Form action={`books/${bookId}/delete`} method="delete">
