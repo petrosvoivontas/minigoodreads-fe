@@ -22,7 +22,7 @@ export const loader = async ({ request }) => {
 		const book = {
 			bookId: item.id,
 			bookTitle: item.volumeInfo.title,
-			bookAuthors: item.volumeInfo.authors,
+			bookAuthors: item.volumeInfo.authors?.join(', '),
 			coverImageUrl: item.volumeInfo.imageLinks?.thumbnail,
 			pageCount: item.volumeInfo.pageCount,
 		}
@@ -88,7 +88,7 @@ const Search = () => {
 										</select>
 										<input hidden name='bookId' value={book.bookId} />
 										<input hidden name='bookTitle' value={book.bookTitle} />
-										<input hidden name='bookAuthor' value={book.bookAuthor} />
+										<input hidden name='bookAuthor' value={book.bookAuthors} />
 										<input hidden name='coverImageUrl' value={book.coverImageUrl} />
 										<input hidden name='pageCount' value={book.pageCount} />
 										<button type='submit'>Add</button>

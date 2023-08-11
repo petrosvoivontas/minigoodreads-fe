@@ -3,7 +3,6 @@ import { Form } from "react-router-dom"
 
 const Book = ({ book }) => {
 	const { bookId, coverImageUrl, bookTitle, bookAuthors, pageCount } = book
-	const authors = bookAuthors.join(', ')
 	return (
 		<div id="contact">
 			{coverImageUrl && (
@@ -14,7 +13,7 @@ const Book = ({ book }) => {
 			<div>
 				<h1>{bookTitle}</h1>
 
-				<p>{authors}</p>
+				<p>{bookAuthors}</p>
 
 				<p>Number of pages: {pageCount}</p>
 			</div>

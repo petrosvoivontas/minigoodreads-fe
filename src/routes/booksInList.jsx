@@ -12,7 +12,7 @@ export const loader = async ({ params }) => {
 		},
 	})
 	const books = await response.json()
-	return books.data
+	return books.data.map(book => ({ ...book, bookAuthors: book.bookAuthor }))
 }
 
 /**
