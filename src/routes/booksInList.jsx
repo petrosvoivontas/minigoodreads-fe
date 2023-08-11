@@ -13,7 +13,50 @@ export const loader = async ({ params }) => {
 		},
 	})
 	const books = await response.json()
-	return books.data.map(book => ({ ...book, bookAuthors: book.bookAuthor }))
+	if (listId !== '1') {
+		return books.data.map(book => ({ ...book, bookAuthors: book.bookAuthor }))
+	}
+	/**
+	 * @type {Promise<Response>[]}
+	 */
+	const readingProgressPromises = books.data.map(async book => {
+		try {
+			return await fetch(`http://localhost:8081/api/progress/${book.bookId}`, {
+				headers: {
+					Authorization: `basic ${token}`,
+				},
+			})
+		} catch {
+			return new Response({
+				data: {
+					currentPage: null
+				}
+			}, {
+				headers: {
+					'content-type': 'application/json'
+				}
+			})
+		}
+	})
+
+	/**
+	 * @type {PromiseFulfilledResult<Response>[]}
+	 */
+	const readingProgressResponses = await Promise.allSettled(readingProgressPromises)
+
+	/**
+	 * @type {PromiseFulfilledResult<any>[]}
+	 */
+	const readingProgressArray = await Promise.allSettled(readingProgressResponses.map(result => result.value.json()))
+
+	return books.data.map((book, i) => {
+		console.log(book, readingProgressArray[i])
+		return { 
+			...book,
+			bookAuthors: book.bookAuthor,
+			currentPage: readingProgressArray[i].value?.data?.currentPage
+		}
+	})
 }
 
 /**
@@ -55,7 +98,7 @@ const BooksInList = () => {
 							display: 'flex',
 							justifyContent: 'space-between',
 						}}>
-							<Book book={book} key={book.bookId} showCurrentPage={isCurrentlyReadingList} />
+							<Book book={book} key={book.bookId} showCurrentPage={isCurrentlyReadingList} currentPage={book.currentPage} />
 							{isCurrentlyReadingList && <UpdateReadingProgress bookId={book.bookId} pageCount={book.pageCount} />}
 						</div>
 					))}
