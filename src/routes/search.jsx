@@ -90,6 +90,7 @@ const Search = () => {
 										<input hidden name='bookTitle' value={book.bookTitle} />
 										<input hidden name='bookAuthor' value={book.bookAuthor} />
 										<input hidden name='coverImageUrl' value={book.coverImageUrl} />
+										<input hidden name='pageCount' value={book.pageCount} />
 										<button type='submit'>Add</button>
 									</Form>
 								</div>
