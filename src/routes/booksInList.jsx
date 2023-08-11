@@ -35,6 +35,7 @@ export const removeBookFromListAction = async ({ params, request }) => {
 const BooksInList = () => {
 	const books = useLoaderData()
 	const { id: listId } = useParams()
+	const isCurrentlyReadingList = listId === '1'
 	return (
 		<>
 			{listId >= 10 && (
@@ -54,8 +55,8 @@ const BooksInList = () => {
 							display: 'flex',
 							justifyContent: 'space-between',
 						}}>
-							<Book book={book} key={book.bookId} />
-							<UpdateReadingProgress bookId={book.bookId} pageCount={book.pageCount} />
+							<Book book={book} key={book.bookId} showCurrentPage={isCurrentlyReadingList} />
+							{isCurrentlyReadingList && <UpdateReadingProgress bookId={book.bookId} pageCount={book.pageCount} />}
 						</div>
 					))}
 				</ul>
