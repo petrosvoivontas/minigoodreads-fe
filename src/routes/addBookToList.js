@@ -10,6 +10,7 @@ export const addBookToListAction = async ({ request }) => {
 	const bookTitle = formData.get('bookTitle')
 	const bookAuthor = formData.get('bookAuthor')
 	const coverImageUrl = formData.get('coverImageUrl')
+	const pageCount = formData.get('pageCount')
 	const token = localStorage.getItem('accessToken')
 	await fetch(`http://localhost:8081/api/lists/${listId}/books`, {
 		method: 'POST',
@@ -22,6 +23,7 @@ export const addBookToListAction = async ({ request }) => {
 			bookTitle,
 			bookAuthor,
 			coverImageUrl,
+			pageCount,
 		}),
 	})
 	return redirect(`/lists/${listId}`)
