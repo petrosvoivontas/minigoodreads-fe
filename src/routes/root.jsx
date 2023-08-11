@@ -32,17 +32,6 @@ const Root = () => {
 			<div id="sidebar">
 				<h1>minigoodreads</h1>
 				<div>
-					<form id="search-form" role="search">
-						<input
-							id="q"
-							aria-label="Search contacts"
-							placeholder="Search"
-							type="search"
-							name="q"
-						/>
-						<div id="search-spinner" aria-hidden hidden={true} />
-						<div className="sr-only" aria-live="polite"></div>
-					</form>
 					{isLoggedIn ? (
 						<>
 							<Link to={'/lists/create'}>
@@ -59,6 +48,36 @@ const Root = () => {
 					)}
 				</div>
 				<nav>
+					<NavLink
+						to={'/'}
+						className={({
+							isActive,
+							isPending,
+						}) => {
+							return isActive
+								? 'active'
+								: isPending
+								? 'pending'
+								: ''
+						}}
+					>
+						Home
+					</NavLink>
+					<NavLink
+						to={'/search'}
+						className={({
+							isActive,
+							isPending,
+						}) => {
+							return isActive
+								? 'active'
+								: isPending
+								? 'pending'
+								: ''
+						}}
+					>
+						Search
+					</NavLink>
 					{lists.length ? (
 						<ul>
 							{lists.map(list => (

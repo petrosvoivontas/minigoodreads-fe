@@ -14,6 +14,8 @@ import BooksInList, {
 import CreateList, { createListAction } from './routes/createList'
 import RenameList, { renameListAction } from './routes/renameList'
 import DeleteList, { deleteListAction } from './routes/deleteList'
+import Search, { loader as booksSearchLoader } from './routes/search'
+import { addBookToListAction } from './routes/addBookToList'
 
 const router = createBrowserRouter([
 	{
@@ -22,8 +24,14 @@ const router = createBrowserRouter([
 		errorElement: <ErrorPage />,
 		loader: listsLoader,
 		action: logoutAction,
+		id: 'root',
 		children: [
 			{ index: true, element: <RootIndex /> },
+			{
+				path: '/search',
+				element: <Search />,
+				loader: booksSearchLoader,
+			},
 			{
 				path: '/lists/create',
 				element: <CreateList />,
@@ -49,6 +57,10 @@ const router = createBrowserRouter([
 				path: '/lists/:id/delete',
 				element: <DeleteList />,
 				action: deleteListAction,
+			},
+			{
+				path: '/add-to-list',
+				action: addBookToListAction,
 			},
 		],
 	},
