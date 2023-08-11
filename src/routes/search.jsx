@@ -14,7 +14,7 @@ export const loader = async ({ request }) => {
 	const searchParams = new URLSearchParams({
 		q,
 		key: process.env.REACT_APP_GOOGLE_BOOKS_API_KEY,
-		fields: 'kind,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/imageLinks)'
+		fields: 'kind,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/imageLinks,volumeInfo/pageCount)'
 	})
 	const response = await fetch(`https://www.googleapis.com/books/v1/volumes?${searchParams}`)
 	const jsonResponse = await response.json()
@@ -23,7 +23,8 @@ export const loader = async ({ request }) => {
 			bookId: item.id,
 			bookTitle: item.volumeInfo.title,
 			bookAuthors: item.volumeInfo.authors,
-			coverImageUrl: item.volumeInfo.imageLinks?.thumbnail
+			coverImageUrl: item.volumeInfo.imageLinks?.thumbnail,
+			pageCount: item.volumeInfo.pageCount,
 		}
 		return book
 	})

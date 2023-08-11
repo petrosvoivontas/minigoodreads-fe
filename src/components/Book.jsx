@@ -2,7 +2,7 @@ import React from "react"
 import { Form } from "react-router-dom"
 
 const Book = ({ book }) => {
-	const { bookId, coverImageUrl, bookTitle, bookAuthors } = book
+	const { bookId, coverImageUrl, bookTitle, bookAuthors, pageCount } = book
 	const authors = bookAuthors.join(', ')
 	return (
 		<div id="contact">
@@ -15,6 +15,8 @@ const Book = ({ book }) => {
 				<h1>{bookTitle}</h1>
 
 				<p>{authors}</p>
+
+				<p>Number of pages: {pageCount}</p>
 			</div>
 			<div>
 				<Form action={`books/${bookId}/delete`} method="delete">
