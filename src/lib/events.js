@@ -60,7 +60,7 @@ export const getEventTitle = (eventName, eventParams, time) => {
  */
 const eventTitleForListCreate = (eventParams, time) => {
 	const listName = eventParams['listName']
-	return `You create a list named ${listName} at ${formatDate(time)}`
+	return `You created a list named ${listName} at ${formatDate(time)}`
 }
 
 /**
@@ -70,7 +70,7 @@ const eventTitleForListCreate = (eventParams, time) => {
  */
 const eventTitleForListDelete = (eventParams, time) => {
 	const listName = eventParams['listName']
-	return `You delete a list named ${listName} at ${formatDate(time)}`
+	return `You deleted a list named ${listName} at ${formatDate(time)}`
 }
 
 /**
