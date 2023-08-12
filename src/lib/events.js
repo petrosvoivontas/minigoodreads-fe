@@ -82,7 +82,7 @@ const eventTitleForListDelete = (eventParams, time) => {
 const eventTitleForListRename = (eventParams, time) => {
 	const oldName = eventParams['listOldName']
 	const newName = eventParams['listNewName']
-	return `${oldName} renamed to ${newName} at ${formatDate(time)}`
+	return `"${oldName}" renamed to "${newName}" at ${formatDate(time)}`
 }
 
 /**
@@ -151,6 +151,13 @@ export const listDeleteEvent = async (listId, listName) => {
 	await postEvent('list_delete', {
 		listName,
 		listId,
+	})
+}
+
+export const listRenameEvent = async (listOldName, listNewName) => {
+	await postEvent('list_rename', {
+		listOldName,
+		listNewName,
 	})
 }
 //#endregion
