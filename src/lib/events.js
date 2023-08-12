@@ -61,7 +61,7 @@ export const getEventTitle = (eventName, eventParams, time) => {
  */
 const eventTitleForListCreate = (eventParams, time) => {
 	const listName = eventParams['listName']
-	return `You created a list named ${listName} at ${formatDate(time)}`
+	return `You created a list named "${listName}" at ${formatDate(time)}`
 }
 
 /**
@@ -71,7 +71,7 @@ const eventTitleForListCreate = (eventParams, time) => {
  */
 const eventTitleForListDelete = (eventParams, time) => {
 	const listName = eventParams['listName']
-	return `You deleted a list named ${listName} at ${formatDate(time)}`
+	return `You deleted a list named "${listName}" at ${formatDate(time)}`
 }
 
 /**
@@ -142,6 +142,13 @@ const postEvent = async (eventName, eventParams) => {
 
 export const listCreateEvent = async (listId, listName) => {
 	await postEvent('list_create', {
+		listName,
+		listId,
+	})
+}
+
+export const listDeleteEvent = async (listId, listName) => {
+	await postEvent('list_delete', {
 		listName,
 		listId,
 	})
