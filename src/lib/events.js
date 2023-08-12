@@ -160,4 +160,23 @@ export const listRenameEvent = async (listOldName, listNewName) => {
 		listNewName,
 	})
 }
+
+export const bookInListAddEvent = async (bookTitle, listName) => {
+	await postEvent('book_in_list_add', {
+		bookTitle,
+		listName,
+	})
+}
+
+export const readingProgressUpdateEvent = async (
+	bookTitle,
+	currentPage,
+	totalPages
+) => {
+	await postEvent('reading_progress_update', {
+		bookTitle,
+		currentPage,
+		totalPages,
+	})
+}
 //#endregion

@@ -99,7 +99,7 @@ const BooksInList = () => {
 							justifyContent: 'space-between',
 						}}>
 							<Book book={book} key={book.bookId} showCurrentPage={isCurrentlyReadingList} currentPage={book.currentPage} />
-							{isCurrentlyReadingList && <UpdateReadingProgress bookId={book.bookId} pageCount={book.pageCount} />}
+							{isCurrentlyReadingList && <UpdateReadingProgress bookId={book.bookId} bookName={book.bookTitle} pageCount={book.pageCount} />}
 						</div>
 					))}
 				</ul>
