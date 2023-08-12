@@ -1,5 +1,6 @@
 import React from "react"
 import { Form, redirect } from "react-router-dom"
+import { listCreateEvent } from "../lib/events"
 
 const FORM_DATA_NAME = 'name'
 
@@ -20,6 +21,10 @@ export const createListAction = async ({ request }) => {
 	})
 	const jsonResponse = await response.json()
 	const { listId } = jsonResponse.data
+
+	// post event
+	await listCreateEvent(listId, listName)
+
 	return redirect(`/lists/${listId}`)
 }
 

@@ -8,7 +8,7 @@ const EVENT_READING_PROGRESS_UPDATE = 'reading_progress_update'
 /**
  * @typedef {('list_create' | 'list_delete' | 'list_rename' | 'book_in_list_add' | 'book_in_list_remove' | 'reading_progress_update')} EventName
  * @typedef {('listId' | 'listName' | 'listOldName' | 'listNewName' | 'bookTitle' | 'currentPage' | 'totalPages')} EventParamKey
- * @typedef {Map<EventParamKey, string>} EventParams
+ * @typedef {Record<EventParamKey, string>} EventParams
  */
 
 /**
@@ -26,6 +26,7 @@ const formatDate = time => {
 	return formatter.format(time)
 }
 
+//#region getEventTitle
 /**
  *
  * @param {EventName} eventName
@@ -119,3 +120,30 @@ const eventTitleForUpdateReadingProgress = (eventParams, time) => {
 		time
 	)}. "${bookTitle}" has ${totalPages} pages in total`
 }
+//#endregion
+
+//#region post events
+/**
+ *
+ * @param {EventName} eventName
+ * @param {EventParams} eventParams
+ */
+const postEvent = async (eventName, eventParams) => {
+	const accessToken = localStorage.getItem('accessToken')
+	await fetch('http://localhost:8081/api/event', {
+		method: 'post',
+		headers: {
+			authorization: `basic ${accessToken}`,
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({ eventName, eventParams }),
+	})
+}
+
+export const listCreateEvent = async (listId, listName) => {
+	await postEvent('list_create', {
+		listName,
+		listId,
+	})
+}
+//#endregion
