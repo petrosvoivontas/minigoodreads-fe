@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './index.css'
-import RootIndex from './RootIndex'
+import RootIndex, { eventsLoader } from './RootIndex'
 import Root, { listsLoader, logoutAction } from './routes/root'
 import ErrorPage from './error-page'
 import Login, { action as loginAction } from './login-page'
@@ -27,7 +27,11 @@ const router = createBrowserRouter([
 		action: logoutAction,
 		id: 'root',
 		children: [
-			{ index: true, element: <RootIndex /> },
+			{
+				index: true,
+				element: <RootIndex />,
+				loader: eventsLoader,
+			},
 			{
 				path: '/search',
 				element: <Search />,
