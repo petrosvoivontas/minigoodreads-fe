@@ -39,6 +39,9 @@ const Root = () => {
 				<div>
 					{userIsAdmin ? (
 						<>
+							<Link to={'/addAdmin'}>
+								<button>New admin</button>
+							</Link>
 							<Form method='post'>
 								<button type='submit'>Logout</button>
 							</Form>
