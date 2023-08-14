@@ -9,17 +9,18 @@ import { Form, useLoaderData } from "react-router-dom";
  * @type {import('react-router-dom'.LoaderFunction)}
  * @returns {User[]}
  */
-export const usersLoader = () => {
-	return [
-		{
-			username: 'petros',
-			enabled: true
-		},
-		{
-			username: 'test',
-			enabled: false
+export const usersLoader = async () => {
+	const token = localStorage.getItem('accessToken')
+	const response = await fetch('http://localhost:8081/api/auth/users', {
+		headers: {
+			authorization: `basic ${token}`
 		}
-	]
+	})
+	const jsonResponse = await response.json()
+	return jsonResponse.data.map(obj => ({
+		username: obj.username,
+		enabled: obj.enabled
+	}))
 }
 
 /**
