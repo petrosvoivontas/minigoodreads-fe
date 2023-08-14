@@ -74,6 +74,23 @@ const Root = () => {
 					>
 						Home
 					</NavLink>
+					{userIsAdmin && (
+						<NavLink
+							to={'/users'}
+							className={({
+								isActive,
+								isPending,
+							}) => {
+								return isActive
+									? 'active'
+									: isPending
+									? 'pending'
+									: ''
+							}}
+						>
+							Users
+						</NavLink>
+					)}
 					{!userIsAdmin && (
 						<NavLink
 							to={'/search'}

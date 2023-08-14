@@ -1,0 +1,66 @@
+import React from "react";
+import { Form, useLoaderData } from "react-router-dom";
+
+/**
+ * @typedef {{ username: string; enabled: boolean }} User
+ */
+
+/**
+ * @type {import('react-router-dom'.LoaderFunction)}
+ * @returns {User[]}
+ */
+export const usersLoader = () => {
+	return [
+		{
+			username: 'petros',
+			enabled: true
+		},
+		{
+			username: 'test',
+			enabled: false
+		}
+	]
+}
+
+/**
+ * @type {import('react-router-dom'.ActionFunction)}
+ */
+export const changeStatusAction = async ({ request }) => {
+	const formData = await request.formData()
+	const username = formData.get('username')
+	console.log(username)
+	return null
+}
+
+/**
+ * 
+ * @param {User}
+ * @returns 
+ */
+const User = ({ username, enabled }) => {
+	return (
+		<div style={{
+			display: 'flex',
+			width: '100%',
+			justifyContent: 'space-between'
+		}}>
+			<p>{username}</p>
+			<Form method="post">
+				<input hidden readOnly name="username" value={username} />
+				<button type="submit">{enabled ? 'Disable' : 'Enable'}</button>
+			</Form>
+		</div>
+	)
+}
+
+const UsersList = () => {
+	const users = useLoaderData()
+	return (
+		<div>
+			<h1>Users</h1>
+			{users && users.map((user, i) => <User key={i} {...user} />)}
+		</div>
+	)
+}
+
+export default UsersList
