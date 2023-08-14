@@ -27,9 +27,17 @@ export const usersLoader = async () => {
  * @type {import('react-router-dom'.ActionFunction)}
  */
 export const changeStatusAction = async ({ request }) => {
+	const token = localStorage.getItem('accessToken')
 	const formData = await request.formData()
 	const username = formData.get('username')
 	console.log(username)
+	await fetch(`http://localhost:8081/api/auth/${username}`, {
+		method: request.method,
+		headers: {
+			authorization: `basic ${token}`,
+			'content-type': 'application/json'
+		}
+	})
 	return null
 }
 
@@ -46,7 +54,7 @@ const User = ({ username, enabled }) => {
 			justifyContent: 'space-between'
 		}}>
 			<p>{username}</p>
-			<Form method="post">
+			<Form method="PATCH">
 				<input hidden readOnly name="username" value={username} />
 				<button type="submit">{enabled ? 'Disable' : 'Enable'}</button>
 			</Form>
