@@ -8,6 +8,9 @@ import { getEventTitle } from './lib/events'
  */
 export const eventsLoader = async () => {
 	const accessToken = localStorage.getItem('accessToken')
+	if (accessToken === null) {
+		return []
+	}
 	const response = await fetch('http://localhost:8081/api/event', {
 		headers: {
 			authorization: `basic ${accessToken}`,

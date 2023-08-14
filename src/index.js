@@ -6,7 +6,7 @@ import './index.css'
 import RootIndex, { eventsLoader } from './RootIndex'
 import Root, { listsLoader, logoutAction } from './routes/root'
 import ErrorPage from './error-page'
-import Login, { action as loginAction } from './login-page'
+import Login, { action as loginAction } from './routes/login'
 import BooksInList, {
 	loader as booksInListLoader,
 	removeBookFromListAction,

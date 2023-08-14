@@ -12,6 +12,10 @@ const storeCredentials = (username, password) => {
 	localStorage.setItem('accessToken', token)
 }
 
+const storeRoles = (roles) => {
+	localStorage.setItem('roles', JSON.stringify(roles))
+}
+
 const login = async (username, password) => {
 	const token = btoa(`${username}:${password}`)
 	const response = await fetch('http://localhost:8081/api/auth/login', {
@@ -23,6 +27,7 @@ const login = async (username, password) => {
 		const jsonResponse = await response.json()
 		console.log(jsonResponse)
 		storeCredentials(username, password)
+		storeRoles(jsonResponse.data.roles)
 	}
 }
 

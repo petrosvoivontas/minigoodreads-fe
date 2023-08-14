@@ -20,7 +20,7 @@ export const listsLoader = async () => {
 }
 
 export const logoutAction = () => {
-	localStorage.removeItem('accessToken')
+	localStorage.clear()
 	return redirect('/')
 }
 
