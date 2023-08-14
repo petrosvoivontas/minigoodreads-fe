@@ -18,6 +18,7 @@ import Search, { loader as booksSearchLoader } from './routes/search'
 import { addBookToListAction } from './routes/addBookToList'
 import { updateReadingProgressAction } from './routes/updateReadingProgress'
 import UsersList, { changeStatusAction, usersLoader } from './routes/users'
+import AddAdmin, { addAdminAction } from './routes/addAdmin'
 
 const router = createBrowserRouter([
 	{
@@ -77,6 +78,11 @@ const router = createBrowserRouter([
 				element: <UsersList />,
 				loader: usersLoader,
 				action: changeStatusAction,
+			},
+			{
+				path: 'addAdmin',
+				element: <AddAdmin />,
+				action: addAdminAction,
 			},
 		],
 	},
