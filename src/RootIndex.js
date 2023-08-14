@@ -2,11 +2,15 @@ import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 
 import { getEventTitle } from './lib/events'
+import { isAdmin } from './lib/auth'
 
 /**
  * @type {import('react-router-dom').LoaderFunction}
  */
 export const eventsLoader = async () => {
+	if (isAdmin()) {
+		return []
+	}
 	const accessToken = localStorage.getItem('accessToken')
 	if (accessToken === null) {
 		return []

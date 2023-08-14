@@ -1,7 +1,11 @@
 import React from 'react'
 import { Form, Link, NavLink, Outlet, redirect, useLoaderData } from 'react-router-dom'
+import { isAdmin } from '../lib/auth'
 
 export const listsLoader = async () => {
+	if (isAdmin()) {
+		return []
+	}
 	const token = localStorage.getItem('accessToken')
 	if (token === null) {
 		return []
@@ -27,12 +31,19 @@ export const logoutAction = () => {
 const Root = () => {
 	const lists = useLoaderData()
 	const isLoggedIn = localStorage.getItem('accessToken') !== null
+	const userIsAdmin = isAdmin()
 	return (
 		<>
 			<div id="sidebar">
 				<h1>minigoodreads</h1>
 				<div>
-					{isLoggedIn ? (
+					{userIsAdmin ? (
+						<>
+							<Form method='post'>
+								<button type='submit'>Logout</button>
+							</Form>
+						</>
+					) : isLoggedIn ? (
 						<>
 							<Link to={'/lists/create'}>
 								<button>New</button>
@@ -63,21 +74,23 @@ const Root = () => {
 					>
 						Home
 					</NavLink>
-					<NavLink
-						to={'/search'}
-						className={({
-							isActive,
-							isPending,
-						}) => {
-							return isActive
-								? 'active'
-								: isPending
-								? 'pending'
-								: ''
-						}}
-					>
-						Search
-					</NavLink>
+					{!userIsAdmin && (
+						<NavLink
+							to={'/search'}
+							className={({
+								isActive,
+								isPending,
+							}) => {
+								return isActive
+									? 'active'
+									: isPending
+									? 'pending'
+									: ''
+							}}
+						>
+							Search
+						</NavLink>
+					)}
 					{lists.length ? (
 						<ul>
 							{lists.map(list => (
