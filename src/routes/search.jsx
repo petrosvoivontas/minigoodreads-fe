@@ -67,12 +67,12 @@ const Search = () => {
 			{books.length > 0 && (
 				<ul id="search-results">
 					{books.map(book => (
-						<div style={{
+						<div key={book.id} style={{
 							display: 'flex',
 							justifyContent: 'space-between',
 							alignItems: 'top'
 						}}>
-							<Book key={book.id} book={book} />
+							<Book book={book} />
 							{lists && (
 								<div style={{
 									display: 'flex',
@@ -86,11 +86,11 @@ const Search = () => {
 												<option key={list.listId} value={list.listId}>{list.name}</option>
 											))}
 										</select>
-										<input hidden name='bookId' value={book.bookId} />
-										<input hidden name='bookTitle' value={book.bookTitle} />
-										<input hidden name='bookAuthor' value={book.bookAuthors} />
-										<input hidden name='coverImageUrl' value={book.coverImageUrl} />
-										<input hidden name='pageCount' value={book.pageCount} />
+										<input hidden readOnly name='bookId' value={book.bookId} />
+										<input hidden readOnly name='bookTitle' value={book.bookTitle} />
+										<input hidden readOnly name='bookAuthor' value={book.bookAuthors} />
+										<input hidden readOnly name='coverImageUrl' value={book.coverImageUrl} />
+										<input hidden readOnly name='pageCount' value={book.pageCount} />
 										<button type='submit'>Add</button>
 									</Form>
 								</div>
