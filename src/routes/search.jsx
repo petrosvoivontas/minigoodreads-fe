@@ -36,6 +36,7 @@ const Search = () => {
 	const lists = useRouteLoaderData('root')
 	const submit = useSubmit()
 	const navigation = useNavigation()
+	const isLoggedIn = localStorage.getItem('accessToken')
 
 	const searching = navigation.location && new URLSearchParams(navigation.location.search).has('q')
 
@@ -73,7 +74,7 @@ const Search = () => {
 							alignItems: 'top'
 						}}>
 							<Book book={book} />
-							{lists && (
+							{lists && isLoggedIn && (
 								<div style={{
 									display: 'flex',
 									alignItems: 'center',
