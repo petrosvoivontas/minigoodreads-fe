@@ -93,7 +93,7 @@ const BooksInList = () => {
 			)}
 			{books.length ? (
 				<ul>
-					{books.map((book, i) => (
+					{books.sort((a, b) => a.insertTs < b.insertTs).map((book, i) => (
 						<div key={i} style={{
 							display: 'flex',
 							justifyContent: 'space-between',
