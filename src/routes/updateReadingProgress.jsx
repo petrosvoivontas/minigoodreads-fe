@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, redirect } from 'react-router-dom'
 import { readingProgressUpdateEvent } from '../lib/events'
+import { baseUrl } from '../lib/api'
 
 /**
  * @type {import('react-router-dom').ActionFunction}
@@ -12,7 +13,7 @@ export const updateReadingProgressAction = async ({ request }) => {
 	const progress = formData.get('progress')
 	const pageCount = formData.get('pageCount')
 	const token = localStorage.getItem('accessToken')
-	await fetch(`http://localhost:8081/api/progress/${bookId}`, {
+	await fetch(`${baseUrl}/api/progress/${bookId}`, {
 		method: request.method,
 		headers: {
 			Authorization: `basic ${token}`,

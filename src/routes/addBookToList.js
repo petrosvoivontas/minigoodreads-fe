@@ -1,4 +1,5 @@
 import { redirect } from 'react-router-dom'
+import { baseUrl } from '../lib/api'
 
 /**
  * @type {import('react-router-dom').ActionFunction}
@@ -12,7 +13,7 @@ export const addBookToListAction = async ({ request }) => {
 	const coverImageUrl = formData.get('coverImageUrl')
 	const pageCount = formData.get('pageCount')
 	const token = localStorage.getItem('accessToken')
-	await fetch(`http://localhost:8081/api/lists/${listId}/books`, {
+	await fetch(`${baseUrl}/api/lists/${listId}/books`, {
 		method: 'POST',
 		headers: {
 			Authorization: `basic ${token}`,

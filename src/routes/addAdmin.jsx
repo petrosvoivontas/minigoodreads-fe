@@ -1,5 +1,6 @@
 import React from "react"
 import { Form, useActionData, useNavigation } from "react-router-dom"
+import { baseUrl } from "../lib/api"
 
 const FORM_DATA_USERNAME = 'username'
 const FORM_DATA_PASSWORD = 'password'
@@ -12,7 +13,7 @@ export const addAdminAction = async ({ request }) => {
 	const formData = await request.formData()
 	const username = formData.get(FORM_DATA_USERNAME)
 	const password = formData.get(FORM_DATA_PASSWORD)
-	const response = await fetch('http://localhost:8081/api/auth/admin', {
+	const response = await fetch(`${baseUrl}/api/auth/admin`, {
 		method: 'post',
 		headers: {
 			authorization: `basic ${accessToken}`,

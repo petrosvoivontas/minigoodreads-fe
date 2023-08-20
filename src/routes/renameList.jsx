@@ -1,6 +1,7 @@
 import React from "react"
 import { Form, Navigate, redirect, useParams, useRouteLoaderData } from "react-router-dom"
 import { listRenameEvent } from "../lib/events"
+import { baseUrl } from "../lib/api"
 
 const FORM_DATA_OLD_NAME = 'oldName'
 const FORM_DATA_NAME = 'name'
@@ -20,7 +21,7 @@ export const renameListAction = async ({ request, params }) => {
 	const oldName = formData.get(FORM_DATA_OLD_NAME)
 	const newName = formData.get(FORM_DATA_NAME)
 	const token = localStorage.getItem('accessToken')
-	await fetch(`http://localhost:8081/api/lists/${listId}`, {
+	await fetch(`${baseUrl}/api/lists/${listId}`, {
 		// PATCH is written in uppercase because the preflight CORS request
 		// returns a list of allowed methods in uppercase
 		method: 'PATCH',

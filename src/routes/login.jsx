@@ -1,5 +1,6 @@
 import React from 'react'
 import { redirect, Form, useNavigation } from 'react-router-dom'
+import { baseUrl } from '../lib/api'
 
 const FORM_DATA_USERNAME = 'username'
 const FORM_DATA_PASSWORD = 'password'
@@ -17,8 +18,9 @@ const storeRoles = (roles) => {
 }
 
 const login = async (username, password) => {
+	console.log('baseUrl', baseUrl)
 	const token = btoa(`${username}:${password}`)
-	const response = await fetch('http://localhost:8081/api/auth/login', {
+	const response = await fetch(`${baseUrl}/api/auth/login`, {
 		headers: {
 			authorization: `Basic ${token}`,
 		},
@@ -32,7 +34,7 @@ const login = async (username, password) => {
 }
 
 const register = async (username, password) => {
-	await fetch('http://localhost:8081/api/auth/register', {
+	await fetch(`${baseUrl}/api/auth/register`, {
 		method: 'post',
 		headers: {
 			'content-type': 'application/json'

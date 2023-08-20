@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Link, Navigate, redirect, useParams, useRouteLoaderData } from 'react-router-dom'
 import { listDeleteEvent } from '../lib/events'
+import { baseUrl } from '../lib/api'
 
 /**
  * @type {import('react-router-dom').ActionFunction}
@@ -16,7 +17,7 @@ export const deleteListAction = async ({ params, request }) => {
 	}
 
 	const token = localStorage.getItem('accessToken')
-	await fetch(`http://localhost:8081/api/lists/${listId}`, {
+	await fetch(`${baseUrl}/api/lists/${listId}`, {
 		method: 'delete',
 		headers: {
 			authorization: `basic ${token}`

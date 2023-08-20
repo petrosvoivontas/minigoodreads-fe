@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, useLoaderData } from "react-router-dom";
+import { baseUrl } from "../lib/api";
 
 /**
  * @typedef {{ username: string; enabled: boolean }} User
@@ -11,7 +12,7 @@ import { Form, useLoaderData } from "react-router-dom";
  */
 export const usersLoader = async () => {
 	const token = localStorage.getItem('accessToken')
-	const response = await fetch('http://localhost:8081/api/auth/users', {
+	const response = await fetch(`${baseUrl}/api/auth/users`, {
 		headers: {
 			authorization: `basic ${token}`
 		}
@@ -31,7 +32,7 @@ export const changeStatusAction = async ({ request }) => {
 	const formData = await request.formData()
 	const username = formData.get('username')
 	console.log(username)
-	await fetch(`http://localhost:8081/api/auth/${username}`, {
+	await fetch(`${baseUrl}/api/auth/${username}`, {
 		method: request.method,
 		headers: {
 			authorization: `basic ${token}`,

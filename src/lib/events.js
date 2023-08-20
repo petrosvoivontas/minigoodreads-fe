@@ -1,3 +1,5 @@
+import { baseUrl } from './api'
+
 const EVENT_LIST_CREATE = 'list_create'
 const EVENT_LIST_DELETE = 'list_delete'
 const EVENT_LIST_RENAME = 'list_rename'
@@ -130,7 +132,7 @@ const eventTitleForUpdateReadingProgress = (eventParams, time) => {
  */
 const postEvent = async (eventName, eventParams) => {
 	const accessToken = localStorage.getItem('accessToken')
-	await fetch('http://localhost:8081/api/event', {
+	await fetch(`${baseUrl}/api/event`, {
 		method: 'post',
 		headers: {
 			authorization: `basic ${accessToken}`,

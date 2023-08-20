@@ -2,12 +2,13 @@ import React from 'react'
 import { Form, Link, redirect, useLoaderData, useParams } from 'react-router-dom'
 import Book from '../components/Book'
 import UpdateReadingProgress from './updateReadingProgress'
+import { baseUrl } from '../lib/api'
 
 export const loader = async ({ params }) => {
 	const { id: listId } = params
 	console.log(`loading books for list ${listId}`)
 	const token = localStorage.getItem('accessToken')
-	const response = await fetch(`http://localhost:8081/api/lists/${listId}/books`, {
+	const response = await fetch(`${baseUrl}/api/lists/${listId}/books`, {
 		headers: {
 			Authorization: `basic ${token}`,
 		},
@@ -21,7 +22,7 @@ export const loader = async ({ params }) => {
 	 */
 	const readingProgressPromises = books.data.map(async book => {
 		try {
-			return await fetch(`http://localhost:8081/api/progress/${book.bookId}`, {
+			return await fetch(`${baseUrl}/api/progress/${book.bookId}`, {
 				headers: {
 					Authorization: `basic ${token}`,
 				},
@@ -66,7 +67,7 @@ export const removeBookFromListAction = async ({ params, request }) => {
 	const { id: listId, bookId } = params
 	console.log(`removing book ${bookId} from list ${listId}`)
 	const token = localStorage.getItem('accessToken')
-	await fetch(`http://localhost:8081/api/lists/${listId}/books/${bookId}`, {
+	await fetch(`${baseUrl}/api/lists/${listId}/books/${bookId}`, {
 		method: request.method,
 		headers: {
 			Authorization: `basic ${token}`,

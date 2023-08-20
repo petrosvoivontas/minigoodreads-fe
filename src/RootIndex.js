@@ -3,6 +3,7 @@ import { useLoaderData } from 'react-router-dom'
 
 import { getEventTitle } from './lib/events'
 import { isAdmin } from './lib/auth'
+import { baseUrl } from './lib/api'
 
 /**
  * @type {import('react-router-dom').LoaderFunction}
@@ -15,7 +16,7 @@ export const eventsLoader = async () => {
 	if (accessToken === null) {
 		return []
 	}
-	const response = await fetch('http://localhost:8081/api/event', {
+	const response = await fetch(`${baseUrl}/api/event`, {
 		headers: {
 			authorization: `basic ${accessToken}`,
 		},

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Link, NavLink, Outlet, redirect, useLoaderData } from 'react-router-dom'
 import { isAdmin } from '../lib/auth'
+import { baseUrl } from '../lib/api'
 
 export const listsLoader = async () => {
 	if (isAdmin()) {
@@ -11,7 +12,7 @@ export const listsLoader = async () => {
 		return []
 	}
 	try {
-		const response = await fetch('http://localhost:8081/api/lists', {
+		const response = await fetch(`${baseUrl}/api/lists`, {
 			headers: {
 				authorization: `basic ${token}`
 			}

@@ -1,6 +1,7 @@
 import React from "react"
 import { Form, redirect } from "react-router-dom"
 import { listCreateEvent } from "../lib/events"
+import { baseUrl } from "../lib/api"
 
 const FORM_DATA_NAME = 'name'
 
@@ -11,7 +12,7 @@ export const createListAction = async ({ request }) => {
 	const formData = await request.formData()
 	const listName = formData.get(FORM_DATA_NAME)
 	const token = localStorage.getItem('accessToken')
-	const response = await fetch('http://localhost:8081/api/lists', {
+	const response = await fetch(`${baseUrl}/api/lists`, {
 		method: 'post',
 		headers: {
 			authorization: `basic ${token}`,
