@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    client_max_body_size 4G;
+
+    server_name _;
+
+    location / {
+      root /usr/share/nginx/html;
+	  try_files $uri /index.html;
+    }
+  }
