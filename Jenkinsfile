@@ -7,7 +7,7 @@ pipeline {
         DOCKER_REGISTRY_URL = 'ghcr.io'
         DOCKER_IMAGE_PREFIX = 'ghcr.io/petrosvoivontas/minigoodreads-fe'
 		GOOGLE_BOOKS_API_KEY = credentials('google-books-api-key')
-		BACKEND_URL = 'http://minigoodreads.ddns.net'
+		BACKEND_URL = 'https://minigoodreads.ddns.net'
     }
 
     stages {
